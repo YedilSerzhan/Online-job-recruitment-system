@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Examples. Setting a custom placemark image</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--
+        Set your own API-key. Testing key is not valid for other web-sites and services.
+        Get your API-key on the Developer Dashboard: https://developer.tech.yandex.ru/keys/
+    -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=en_RU&amp;apikey=<your API-key>" type="text/javascript"></script>
+	<style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-width: 800px;
+        }
+
+
+        html, body {
+            width: 100%; height: 100%; padding: 0; margin: 0;
+        }
+
+        #map{
+            width: 400px;
+            height: 300px;
+        }
+    </style>
+    <script src="../js/icon_customImage.js"></script>
+    <script src="../js/templeteJS.js"></script>
+    <link rel="stylesheet" href="../css/templeteStyle.css">
+</head>
+<body>
+
+<!--navbar-->
+<div class="topnav" id="myTopnav">
+    <a href="../template_index.html">Home</a>
+    <a href="#">MyCV</a>
+    <a href="#">Applyprocess</a>
+    <a href="template_contacts.html" class="active">Contacts</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+    </a>
+</div>
+
+
+<!--container-->
+<div class="Contact_container">
+    <h2>Contact us!</h2>
+    <div class="MyContactGrid">
+
+        <!--left contact grid-->
+        <div class="contactBox">
+            <div>
+                <p>Feel free to contact us, we are always open to discuss new projects.</p>
+                <h4>Need help?</h4>
+                <p>edil@php.lab2</p>
+                <p>Aigerim@php.lab2</p>
+                <h4>Feel like talking?</h4>
+                <p>87771234567</p>
+                <p>87779876543</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="map" class="contactFormBox"></div>
+</div>
+
+</body>
+</html>
