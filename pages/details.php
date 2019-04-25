@@ -8,6 +8,21 @@
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/myStyle.css">
+    <?php require_once('../config/db.php') ?>
+    <?php
+
+        $id = mysqli_real_escape_string($dbc,$_GET['id']);
+        $query = "SELECT * FROM jobs j inner join companies c using(company_id) where job_id = ".$id;    
+        $result = @mysqli_query($dbc, $query);
+        if ($result) {
+            $job = mysqli_fetch_assoc($result);
+            mysqli_free_result($result);
+        }
+        else {
+        $error_msg = mysqli_error($dbc);
+        echo $error_msg;
+        }
+    ?>
 
 </head>
 <body>
@@ -15,7 +30,7 @@
 <!--navbar-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="../Index.html">Best Job</a>
+        <a class="navbar-brand" href="../index.php">Best Job</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -24,10 +39,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="jobList.html">Job List</a>
+                    <a class="nav-link" href="jobList.php">Job List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="myCV.html">My CV</a>
+                    <a class="nav-link" href="myCV.php">My CV</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Apply Process</a>
@@ -46,7 +61,7 @@
 <!--container-->
 <div class="container">
 
-    <h1>PHP programmer</h1>
+    <h1><?php echo $job['job_name']?></h1>
 
     <hr>
 
@@ -56,11 +71,13 @@
     <!--primary information-->
     <div class="mx-md-5 clearfix">
 
-        <p> Location: Almaty</p>
+        <p> Location: <?php echo $job['job_location']?></p>
 
-        <p> Salary: 2 000 000 - 3 000 000 tg</p>
+        <p> Salary: <?php echo $job['salary']?> tg</p>
 
-        <p> Experience: 3-4 years</p>
+        <p> Experience: <?php echo $job['year_of_experience']?> years</p>
+
+        <p> Post date: <?php echo $job['post_date']?> years</p>
 
         <button class="btn btn-primary float-right">Apply</button>
 
@@ -72,34 +89,13 @@
 
     <!--description -->
     <div id="description" class="mb-md-5">
-        <strong>Client Details:</strong>
-        <p>The Admin Assistant role is working for an Online Property company based in London's West End. Working under
-            a larger Property group, the organisation is experiencing a period of growth and are looking to grow their
-            team.</p>
+        <strong>Company Information:</strong>
+        <p> Name: <?php echo $job['company_name']?></p>
+        <p> details: <?php echo $job['company_description']?></p>
         <strong>Description:</strong>
-        <p>Key responsibilities for the Admin Assistant - Online property company - London include:</p>
+        <p><?php echo $job['job_description']?></P>
 
-        <ul>
-            <li>Screening and redirecting telephone calls, taking appropriate messages</li>
-            <li>Diary management for the Head of Sales, coordinating meetings for the wider team</li>
-            <li>Chasing up on viewings/arrangements</li>
-            <li>Drawing up and sending out Sale Agreements</li>
-            <li>Creating and uploading property details on to multiple websites</li>
-            <li>Updating and chasing up vendors/buyers</li>
-            <li>Chasing up for feedback after viewings</li>
-            <li>Organising photos for properties via 3rd party sources</li>
-        </ul>
-
-        <strong>Profile:</strong>
-        <p>The successful Admin Assistant - Online property company - London will be/will have:</p>
-        <ul>
-            <li>At least 12 months experience working within a similar role</li>
-            <li>Experience within property is preferred</li>
-            <li>Confident across the MS office suite, in particular Excel and PowerPoint</li>
-            <li>Highly ambitious, looking to progress</li>
-            <li>Proven ability to work using own initiative</li>
-
-        </ul>
+        
 
 
     </div>

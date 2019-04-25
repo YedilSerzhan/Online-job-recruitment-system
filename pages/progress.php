@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>PHP programmer</title>
+    <title>Apply Progress</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +15,7 @@
 <!--navbar-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="../Index.html">Best Job</a>
+        <a class="navbar-brand" href="../index.php">Best Job</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -24,13 +24,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="jobList.html">Job List</a>
+                    <a class="nav-link" href="jobList.php">Job List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="myCV.html">My CV</a>
+                    <a class="nav-link" href="myCV.php">My CV</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="progress.html">Apply Process</a>
+                    <a class="nav-link" href="progress.php">Apply Process</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

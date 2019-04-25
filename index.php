@@ -10,6 +10,24 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/myStyle.css">
     <script src="js/jquery-3.3.1.js"></script>
+    <?php require_once('config/db.php') ?>
+    <?php
+
+    //For getting three lastest jobs
+    $query = "select * from jobs order by post_date desc limit 3";    
+    $result = @mysqli_query($dbc, $query);
+    if ($result) {
+      $jobs=mysqli_fetch_all($result, MYSQLI_ASSOC);
+      mysqli_free_result($result);
+    }
+    else {
+      $error_msg = mysqli_error($dbc);
+      echo $error_msg;
+    }
+
+    // session start
+    session_start();
+    ?>
 
     <style>
         .modal-content {
@@ -25,7 +43,7 @@
     <!--navbar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="Index.html">Best Job</a>
+            <a class="navbar-brand" href="Index.php">Best Job</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,13 +52,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/jobList.html">Job List</a>
+                        <a class="nav-link" href="pages/jobList.php">Job List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/myCV.html">My CV</a>
+                        <a class="nav-link" href="pages/myCV.php">My CV</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/progress.html">Apply Process</a>
+                        <a class="nav-link" href="pages/progress.php">Apply Process</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -66,7 +84,7 @@
                 <div class="modal-body">
                     <div id="loginForm">
                         <p class="text-center display-4 font-weight-bold">Login</p>
-                        <form name="signInForm" onsubmit="return validateForm()" method="post">
+                        <form name="signInForm" onsubmit="return validateForm()" method="post" action="functions/login.fuc.php">
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" class="form-control" id="username" required placeholder="username">
@@ -76,7 +94,7 @@
                                 <input type="text" class="form-control" id="password" required placeholder="password">
                             </div>
                             <div class="row">
-                                <button type="submit" class="btn btn-primary w-75 mx-auto">Sign In</button>
+                                    echo '<button type="submit" class="btn btn-primary w-75 mx-auto" name = "signIn">Sign In</button>';   
                             </div>
 
                         </form>
@@ -103,7 +121,7 @@
                                 <input type="text" class="form-control" id="password2S" required placeholder="password">
                             </div>
                             <div class="row">
-                                <button type="submit" class="btn btn-primary w-75 mx-auto">Sign Up</button>
+                                <button type="submit" class="btn btn-primary w-75 mx-auto" name = "signUp">Sign Up</button>
                             </div>
 
                             <hr>
@@ -140,7 +158,7 @@
                 </div>
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
-                    <input type="button" value="Search" class="form-control inline">
+                    <input type="button" value="Search" class="form-control inline" name = "search">
                 </div>
             </form>
             <p></p>
@@ -153,63 +171,25 @@
         <div id="jobList">
 
 
-            <!--3 job boxes-->
+            <?php foreach($jobs as $job): ?>
+            <!-- job boxes-->
             <div class="row mb-2">
                 <div class="col-md-12">
                     <div class="card flex-md-row mb-4 box-shadow h-md-250 shadow-lg jobBox4">
                         <div class="card-body d-flex flex-column align-items-start">
-                            <h3><strong class="d-inline-block mb-0 text-primary">PHP programmer</strong></h3>
+                            <h3><strong class="d-inline-block mb-0 text-primary"><?php echo $job['job_name']?></strong></h3>
                             <p class="mb-0">
-                                <a class="text-dark" href="#">Almaty</a>
+                                <a class="text-dark" href="#"><?php echo $job['job_location']?></a>
                             </p>
-                            <div class="mb-1 text-muted">Nov 12</div>
-                            <p class="card-text mb-auto">This is a wider card with supporting text below as a natural
-                                lead-in to
-                                additional content.</p>
-                            <a href="#">Continue reading</a>
+                            <div class="mb-1 text-muted"><?php echo $job['post_date']?></div>
+                            <p class="card-text mb-auto"><?php echo substr($job['job_description'],0,100)."..."?></p>
+                            <a href="pages/details.php?id=<?php echo $job['job_id']?>">Continue reading</a>
 
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="row mb-2">
-                <div class="col-md-12">
-                    <div class="card flex-md-row mb-4 box-shadow h-md-250 shadow-lg jobBox3">
-                        <div class="card-body d-flex flex-column align-items-start">
-                            <h3><strong class="d-inline-block mb-0 text-primary">PHP programmer</strong></h3>
-                            <p class="mb-0">
-                                <a class="text-dark" href="#">Almaty</a>
-                            </p>
-                            <div class="mb-1 text-muted">Nov 12</div>
-                            <p class="card-text mb-auto">This is a wider card with supporting text below as a natural
-                                lead-in to
-                                additional content.</p>
-                            <a href="#">Continue reading</a>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mb-2">
-                <div class="col-md-12">
-                    <div class="card flex-md-row mb-4 box-shadow shadow-lg h-md-250 jobBox4">
-                        <div class="card-body d-flex flex-column align-items-start">
-                            <h3><strong class="d-inline-block mb-0 text-primary">PHP programmer</strong></h3>
-                            <p class="mb-0">
-                                <a class="text-dark" href="#">Almaty</a>
-                            </p>
-                            <div class="mb-1 text-muted">Nov 12</div>
-                            <p class="card-text mb-auto">This is a wider card with supporting text below as a natural
-                                lead-in to
-                                additional content.</p>
-                            <a href="#">Continue reading</a>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach; ?>
 
         </div>
         <hr>
@@ -237,19 +217,6 @@
         return false;
     });
 
-    $.ajax({
-        url: 'mysql_connection.php',
-        type: 'GET',
-        data: 'twitterUsername=jquery4u',
-        success: function (data) {
-            //called when successful
-            $('#jobList').html("<h1>Hey</h1>");
-        },
-        error: function (e) {
-            //called when there is an error
-            console.log(e.message);
-        }
-    });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
     integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
