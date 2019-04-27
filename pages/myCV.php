@@ -1,57 +1,36 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <title>My CV</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=bek4zv42gwp1dhkb51g1s1r6ocg6c2qpwegbs1epvekl7xxw"></script>
+  <script>
+  tinymce.init({
+    selector: '#description'
+  });
+  </script>
 
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/myStyle.css">
+<?php
+   if(isset($_POST['update'])){
+    require_once('../config/db.php');
+    $query = "INSERT INTO `jobs`(`job_name`, `job_location`, `salary`, `year_of_experience`,  `job_description`, `company_id`) VALUES ('database manager','Almaty',8000,5,?,'1')";
+ 
+        if($stmt = mysqli_prepare($dbc, $query)){
+            $description = $_POST['publicinfo'];
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $description);
+            mysqli_stmt_execute($stmt);
+        }  
 
+   }
+?>
 </head>
-<body>
 
-<!--navbar-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top mb-3">
-    <div class="container">
-        <a class="navbar-brand" href="../index.php">Best Job</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="jobList.php">Job List</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="myCV.php">My CV</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="progress.php">Apply Process</a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a class="btn btn-default btn-rounded " data-toggle="modal" data-target="#exampleModalLong"
-                       id="signInLink">Sign in</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<br>
-
-<!--container-->
-<div class="container">
+    <?php 
+    include 'inc/header.php'
+    ?>
 
     <p class="text-center display-4">My Curriculum Vitae</p>
     <p class="text-center text-muted mb-lg-5"> here's your basic info, your applied companys will see.</p>
 
     <div class="row">
         <div class="col-md-8 offset-2">
-            <form>
+            <form method="post">
                 <div class="form-group row">
                     <label for="name" class="col-4 col-form-label">First Name</label>
                     <div class="col-8">
@@ -94,7 +73,7 @@
                 <div class="form-group row">
                     <label for="email" class="col-4 col-form-label">Email*</label>
                     <div class="col-8">
-                        <input id="email" name="email" placeholder="Email" class="form-control here" required="required"
+                        <input id="email" name="email" placeholder="Email" class="form-control here" 
                                type="text">
                     </div>
                 </div>
@@ -105,16 +84,10 @@
                                type="text">
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="website" class="col-4 col-form-label">Blog</label>
-                    <div class="col-8">
-                        <input id="website" name="website" placeholder="Personal website" class="form-control here" type="text">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="publicinfo" class="col-4 col-form-label">Experience & skills</label>
-                    <div class="col-8">
-                        <textarea id="publicinfo" name="publicinfo" cols="40" rows="4" class="form-control"></textarea>
+                <div class="form-group">
+                    <label for="publicinfo" class="col-4 col-form-label mb-4">Experience & skills</label>
+                    <div class="col-12">
+                        <textarea id="description" name="publicinfo" cols="80" rows="10" class="form-control"></textarea>
                     </div>
                 </div>
                 <!--<div class="form-group row">-->
@@ -126,30 +99,12 @@
                 <!--</div>-->
                 <div class="form-group row">
                     <div class="offset-4 col-8">
-                        <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                        <button name="update" type="submit" class="btn btn-primary">Update My Profile</button>
                     </div>
                 </div>
             </form>
-        </div>
+        
 
-    </div>
-
-    <hr>
-    <!-- Copyright -->
-    <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; 2019 Yedil, Aigerim</p>
-    </footer>
-</div>
-</body>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
-<script src="../js/bootstrap.min.js"></script>
-</html>
+   <?php 
+   include 'inc/footer.php';
+   ?>
